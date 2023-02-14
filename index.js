@@ -1,18 +1,16 @@
 const divContainer = document.querySelector(".container");
 const changeGridBtn = document.querySelector(".change-grid");
+const resetBtn = changeGridBtn.addEventListener("click", () => {
+  let userSize = prompt("Enter the number of pixels you want to change.");
 
-changeGridBtn.addEventListener("click", () => {
-  let gridValue = prompt("Enter number of rows");
-
-  if (gridValue > 50) {
-    alert("Value is too large");
-  } else {
-    divContainer.style.gridTemplateRows = `repeat(${gridValue}, 1fr)`;
-    divContainer.style.gridTemplateColumns = `repeat(${gridValue}, 1fr)`;
-
-    divContainer.innerHTML = "";
-    createGrid(gridValue);
+  while (userSize > 100) {
+    userSize = prompt("Pick a smaller number 100 or less.");
   }
+  divContainer.style.gridTemplateRows = `repeat(${userSize}, 1fr)`;
+  divContainer.style.gridTemplateColumns = `repeat(${userSize}, 1fr)`;
+
+  divContainer.innerHTML = "";
+  createGrid(userSize);
 });
 
 let createGrid = (number) => {
