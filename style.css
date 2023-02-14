@@ -7,7 +7,7 @@ html {
   grid-template-columns: repeat(16, 1fr);
   grid-template-rows: repeat(16, 1fr);
   width: 960px;
-  height: 100px;
+  height: 600px;
   margin: 15px auto;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
@@ -16,7 +16,8 @@ html {
 
 .box {
   background-color: rgb(213, 223, 218);
-  height: 20px;
+  height: 100%;
+  width: 100%;
   border: none;
 }
 
