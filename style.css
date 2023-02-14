@@ -1,0 +1,25 @@
+html {
+  margin: 0;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(16, 1fr);
+  width: 960px;
+  margin: 15px auto;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  border: 1px solid black;
+}
+
+.box {
+  background-color: rgb(213, 223, 218);
+  height: 30px;
+  border: none;
+}
+
+.change-grid {
+  display: flex;
+  margin: 0 auto;
+}
