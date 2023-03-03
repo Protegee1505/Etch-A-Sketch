@@ -1,48 +1,53 @@
 const divContainer = document.querySelector(".container");
 const changeGridBtn = document.querySelector(".change-grid");
+const clearGridBtn = document.querySelector(".clear-grid");
 
-let defaultNumber = 16;
+let defaultGridSize = 16;
 
-const resetBtn = changeGridBtn.addEventListener("click", () => {
-  let userSize = Number(
+const changeSizeGrid = changeGridBtn.addEventListener("click", () => {
+  const userSize = Number(
     prompt(
       "Enter the number of squares you want to change 0-100.",
-      `${defaultNumber}`
+      `${defaultGridSize}`
     )
   );
 
-  while (userSize > 100 || userSize < 0) {
-    userSize = prompt("Please pick a number 100 or less.", `${defaultNumber}`);
+  while (
+    userSize > 100 ||
+    userSize < 0 ||
+    userSize === null ||
+    isNaN(userSize)
+  ) {
+    userSize = prompt(
+      "Please pick a number 100 or less.",
+      `${defaultGridSize}`
+    );
   }
 
-  if (userSize === null) {
-    userSize = defaultNumber;
+  if (userSize === 0) {
+    userSize = defaultGridSize;
   } else {
     divContainer.style.gridTemplateRows = `repeat(${userSize}, 1fr)`;
     divContainer.style.gridTemplateColumns = `repeat(${userSize}, 1fr)`;
-    defaultNumber = userSize;
+    defaultGridSize = userSize;
     divContainer.innerHTML = "";
     createGrid(userSize);
     mouseDraw();
   }
-  console.log(userSize);
 });
 
-let createGrid = (number) => {
-  for (let i = 0; i < number * number; i++) {
-    const containerChild = document.createElement("div");
-    divContainer.appendChild(containerChild);
-    containerChild.classList.add("box");
-  }
-};
+clearGridBtn.addEventListener("click", () => {
+  divContainer.querySelectorAll("div").forEach((div) => {
+    div.style.backgroundColor = "rgb(213, 223, 218)";
+  });
+});
 
-let mouseIsDown = false;
 // Makes background color div change when mouse is down and mouse over
-let mouseDraw = () => {
+const mouseDraw = () => {
+  let mouseIsDown = false;
   divContainer.querySelectorAll("div").forEach((div) => {
     div.addEventListener("mouseenter", () => {
       if (mouseIsDown) {
-        mouseIsDown = true;
         div.style.backgroundColor = "black";
       }
     });
@@ -55,8 +60,26 @@ let mouseDraw = () => {
     div.addEventListener("mouseup", () => {
       mouseIsDown = false;
     });
+
+    // set mouseIsDown to false if the mousedown event occurred outside the divContainer
+    document.addEventListener("mouseup", () => {
+      mouseIsDown = false;
+    });
   });
 };
 
-createGrid(defaultNumber);
+const createGrid = (number) => {
+  for (let i = 0; i < number * number; i++) {
+    const containerChild = document.createElement("div");
+    divContainer.appendChild(containerChild);
+    containerChild.classList.add("box");
+    // Preventing default on mousedown event
+    divContainer.setAttribute(
+      "onmousedown",
+      "event.preventDefault ? event.preventDefault() : event.returnValue = false"
+    );
+  }
+};
+
+createGrid(defaultGridSize);
 mouseDraw();
