@@ -32,4 +32,13 @@ body {
 
 .clear-grid {
   margin-left: 8px;
+  margin-right: 8px;
+}
+
+.off {
+  color: red;
+}
+
+.on {
+  color: green;
 }
